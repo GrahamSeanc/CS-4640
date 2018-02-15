@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public Boundary boundary;
     public float tilt;
-    public static bool isPoweredUp;
+    public bool isPoweredUp;
 
     public GameObject shot;
     public Transform shotSpawn;
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
             if (isPoweredUp)
             {   
                 fireRate = 0.1f;
-                Invoke("SetUpgradeFalse", 10);
+                
             }
             else
             {
@@ -42,15 +42,11 @@ public class PlayerController : MonoBehaviour
             }
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-            GetComponent<AudioSource>().Play();
-         
+            GetComponent<AudioSource>().Play();         
         }
     }
 
-    public static void SetUpgradeFalse()
-    {
-        isPoweredUp = false;
-    }
+
 
 
     void FixedUpdate()
@@ -69,6 +65,22 @@ public class PlayerController : MonoBehaviour
         );
 
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f, 0.0f, GetComponent<Rigidbody>().velocity.x * -tilt);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Upgrade"))
+        {
+            isPoweredUp = true;
+            Invoke("SetUpgradeFalse", 10);
+            Destroy(other.gameObject);
+        }
+        
+    }
+
+    private void SetUpgradeFalse()
+    {
+        isPoweredUp = false;
     }
 
 }

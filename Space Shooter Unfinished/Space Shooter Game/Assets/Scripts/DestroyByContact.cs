@@ -6,6 +6,7 @@ public class DestroyByContact : MonoBehaviour
 	public GameObject explosion;
 	public GameObject playerExplosion;
 	public int scoreValue;
+    
 
 	private GameController gameController;
 
@@ -28,6 +29,11 @@ public class DestroyByContact : MonoBehaviour
 		{
 			return;
 		}
+
+        if (other.tag == ("Enemy"))
+        {
+            return;
+        }
 
         if (explosion != null)
         {

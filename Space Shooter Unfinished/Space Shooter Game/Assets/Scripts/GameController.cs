@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     public float waveWait;
     public GameObject[] spawnPoints;
     public float upgradeMaxtimeSpawn = 7.5f;
+    public int killScore = 0;
 
     public GUIText restartText;
     public GUIText gameOverText;
@@ -37,12 +38,16 @@ public class GameController : MonoBehaviour
         score = 0;
         UpdateScore();
         StartCoroutine(SpawnWaves());
-        actualUpgradeTime = Random.Range(upgradeMaxtimeSpawn - 3.0f, upgradeMaxtimeSpawn);
+        actualUpgradeTime = Random.Range(upgradeMaxtimeSpawn + 3.0f, upgradeMaxtimeSpawn);
         actualUpgradeTime = Mathf.Abs(actualUpgradeTime);
     }
     void Update()
     {
-       if (restart)
+        if (killScore >= 5)
+        {
+            SceneManager.LoadScene("Boss");
+        }
+            if (restart)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -52,16 +57,12 @@ public class GameController : MonoBehaviour
         currentUpgradeTime += Time.deltaTime;
 
         if (currentUpgradeTime > actualUpgradeTime)
-        {
-            if (!spawnedUpgrade)
-            {
-                int randomNumber = Random.Range(0, spawnPoints.Length - 1);
-                GameObject spawnLocation = spawnPoints[randomNumber];
-                GameObject upgrade = Instantiate(upgradePrefab) as GameObject;
-                Upgrade upgradeScript = upgrade.GetComponent<Upgrade>();
-                upgrade.transform.position = spawnLocation.transform.position;
-                spawnedUpgrade = true;
-            }
+        {         
+            int randomNumber = Random.Range(0, spawnPoints.Length - 1);
+            GameObject spawnLocation = spawnPoints[randomNumber];
+            GameObject upgrade = Instantiate(upgradePrefab) as GameObject;
+            upgrade.transform.position = spawnLocation.transform.position;
+            currentUpgradeTime = 0;
         }
     }
 
@@ -94,8 +95,14 @@ public class GameController : MonoBehaviour
 
     public void AddScore(int newScoreValue)
     {
+        if (newScoreValue == 20)
+        {
+            killScore += 1;
+        }
         score += newScoreValue;
         UpdateScore();
+
+
     }
     void UpdateScore()
     {

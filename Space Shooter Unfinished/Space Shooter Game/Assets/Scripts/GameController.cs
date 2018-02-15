@@ -38,12 +38,12 @@ public class GameController : MonoBehaviour
         score = 0;
         UpdateScore();
         StartCoroutine(SpawnWaves());
-        actualUpgradeTime = Random.Range(upgradeMaxtimeSpawn + 3.0f, upgradeMaxtimeSpawn);
+        actualUpgradeTime = Random.Range(upgradeMaxtimeSpawn + 15.0f, upgradeMaxtimeSpawn);
         actualUpgradeTime = Mathf.Abs(actualUpgradeTime);
     }
     void Update()
     {
-        if (killScore >= 5)
+        if (killScore >= 15)
         {
             SceneManager.LoadScene("Boss");
         }

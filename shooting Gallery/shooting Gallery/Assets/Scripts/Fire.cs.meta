@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 70fe05573be3b224f9541236910908a4
+timeCreated: 1520062895
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - redBulletPrefab: {fileID: 1315534114770042, guid: 69677b9c0c63c034ea0e8f1c2f8f2968,
+      type: 2}
+  - blueBulletPrefab: {fileID: 1844087183940476, guid: 4255a7124cd2e8549a3fbee059e25d9f,
+      type: 2}
+  - Launcher: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
